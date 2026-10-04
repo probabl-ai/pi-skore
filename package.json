@@ -1,0 +1,50 @@
+{
+	"name": "@probabl/pi-skore",
+	"version": "0.1.0",
+	"description": "Single-install Pi distribution: bundles @probabl/pi-skill-lifecycle, @probabl/pi-ask-user-question, @99percentpeople/pi-thinking-fold, and pi-web-access as one pinned package.",
+	"keywords": [
+		"pi-package",
+		"pi",
+		"pi-coding-agent",
+		"meta-package",
+		"distribution"
+	],
+	"license": "MIT",
+	"author": "Probabl",
+	"type": "module",
+	"publishConfig": {
+		"access": "public"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/probabl-ai/pi-skore.git"
+	},
+	"homepage": "https://github.com/probabl-ai/pi-skore#readme",
+	"bugs": {
+		"url": "https://github.com/probabl-ai/pi-skore/issues"
+	},
+	"pi": {
+		"extensions": [
+			"./node_modules/@probabl/pi-skill-lifecycle/extensions/index.ts",
+			"./node_modules/@probabl/pi-ask-user-question/index.ts",
+			"./node_modules/@99percentpeople/pi-thinking-fold/index.min.js",
+			"./node_modules/pi-web-access/dist"
+		]
+	},
+	"dependencies": {
+		"@99percentpeople/pi-thinking-fold": "0.1.11",
+		"@probabl/pi-ask-user-question": "0.1.0",
+		"@probabl/pi-skill-lifecycle": "0.2.0",
+		"pi-web-access": "0.35.0"
+	},
+	"bundleDependencies": [
+		"@99percentpeople/pi-thinking-fold",
+		"@probabl/pi-ask-user-question",
+		"@probabl/pi-skill-lifecycle",
+		"pi-web-access"
+	],
+	"scripts": {
+		"prepack": "npm install --omit=dev --legacy-peer-deps --no-audit --no-fund",
+		"verify": "node scripts/verify-bundle.mjs"
+	}
+}
