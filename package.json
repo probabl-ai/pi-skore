@@ -1,6 +1,6 @@
 {
 	"name": "@probabl/pi-skore",
-	"version": "0.1.0",
+	"version": "0.1.1",
 	"description": "Single-install Pi distribution: bundles @probabl/pi-skill-lifecycle, @probabl/pi-ask-user-question, @99percentpeople/pi-thinking-fold, and pi-web-access as one pinned package.",
 	"keywords": [
 		"pi-package",
@@ -33,9 +33,9 @@
 	},
 	"dependencies": {
 		"@99percentpeople/pi-thinking-fold": "0.1.11",
-		"@probabl/pi-ask-user-question": "0.1.0",
+		"@probabl/pi-ask-user-question": "0.2.0",
 		"@probabl/pi-skill-lifecycle": "0.2.0",
-		"pi-web-access": "0.35.0"
+		"pi-web-access": "0.36.0"
 	},
 	"bundleDependencies": [
 		"@99percentpeople/pi-thinking-fold",

@@ -15,7 +15,7 @@ are discovered from the package's `pi` manifest. Nothing else to configure.
 | Extension | Source | What it adds |
 |---|---|---|
 | **skill lifecycle** | [`@probabl/pi-skill-lifecycle`](https://www.npmjs.com/package/@probabl/pi-skill-lifecycle) | OpenCode-style skill loading: a `skill` tool, a binding skill protocol, and archiving of stale skill bodies. No configuration. |
-| **ask user question** | [`@probabl/pi-ask-user-question`](https://www.npmjs.com/package/@probabl/pi-ask-user-question) | The `ask_user_question` tool, scaled past 4 questions × 4 options, with a windowed tab bar and scrolling option lists. |
+| **ask user question** | [`@probabl/pi-ask-user-question`](https://www.npmjs.com/package/@probabl/pi-ask-user-question) | The `ask_user_question` tool, scaled past 4 questions × 4 options, with a windowed tab bar and scrolling option lists. `PgUp` / `PgDn` and the mouse wheel scroll the conversation behind the dialog while you answer. |
 | **thinking fold** | [`@99percentpeople/pi-thinking-fold`](https://www.npmjs.com/package/@99percentpeople/pi-thinking-fold) | Folds reasoning/thinking output in the TUI. |
 | **web access** | [`pi-web-access`](https://www.npmjs.com/package/pi-web-access) | Web search and fetch tools (search providers, `fetch_content`, video/PDF/GitHub fetching). |
 
