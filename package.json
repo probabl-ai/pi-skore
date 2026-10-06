@@ -1,6 +1,6 @@
 {
 	"name": "@probabl/pi-skore",
-	"version": "0.1.1",
+	"version": "0.1.2",
 	"description": "Single-install Pi distribution: bundles @probabl/pi-skill-lifecycle, @probabl/pi-ask-user-question, @99percentpeople/pi-thinking-fold, and pi-web-access as one pinned package.",
 	"keywords": [
 		"pi-package",
