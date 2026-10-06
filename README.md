@@ -1,7 +1,7 @@
 # pi-skore
 
 One-command Pi distribution. `pi-skore` bundles four Pi packages — three
-extensions and one skill lifecycle — into a single pinned npm package.
+extensions and one skill lifecycle — into a single npm package.
 
 ```bash
 pi install npm:@probabl/pi-skore
@@ -19,8 +19,11 @@ are discovered from the package's `pi` manifest. Nothing else to configure.
 | **thinking fold** | [`@99percentpeople/pi-thinking-fold`](https://www.npmjs.com/package/@99percentpeople/pi-thinking-fold) | Folds reasoning/thinking output in the TUI. |
 | **web access** | [`pi-web-access`](https://www.npmjs.com/package/pi-web-access) | Web search and fetch tools (search providers, `fetch_content`, video/PDF/GitHub fetching). |
 
-Each package is pinned to an exact version, so a given `pi-skore` release is a
-reproducible set of extension versions rather than a floating set.
+Each package is declared with an unrestricted range (`*`) and pinned by the
+committed `package-lock.json`, so a given `pi-skore` release is a reproducible
+set of extension versions rather than a floating set. Because the packages are
+bundled, the resolved tree is embedded in the published tarball: consumers
+extract it verbatim and never re-resolve the ranges themselves.
 
 ## How it is built
 
@@ -38,7 +41,7 @@ manifest at their real entry points inside `node_modules`:
       "./node_modules/pi-web-access/dist"
     ]
   },
-  "dependencies": { "…": "exact version" },
+  "dependencies": { "…": "*" },
   "bundleDependencies": ["…"]
 }
 ```
@@ -69,9 +72,13 @@ pi update npm:@probabl/pi-skore     # move to the newest pi-skore release
 pi update --extensions              # update every installed package
 ```
 
-Because the inner versions are pinned, an update arrives as a new `pi-skore`
-release that re-pins them. To bump the bundle, edit the versions in
-`package.json`, run `npm install && npm run verify && npm pack`, then publish.
+Because the inner versions are pinned by the lockfile, an update arrives as a
+new `pi-skore` release. To move the bundle to newer inner versions, refresh the
+lockfile (`npm update --legacy-peer-deps`), run
+`npm run verify && npm pack --dry-run`, then bump `pi-skore`'s own version and
+publish. The `*` ranges in `package.json` only describe what the lockfile is
+allowed to resolve; the committed lockfile and CI's `npm ci` decide the exact
+versions that get bundled.
 
 ## Uninstalling
 

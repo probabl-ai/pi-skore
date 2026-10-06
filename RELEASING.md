@@ -2,10 +2,16 @@
 
 How to publish a new version of the Pi meta-package.
 
-`pi-skore` has no source of its own. It pins four packages in `dependencies`,
-lists them in `bundleDependencies`, and points its `pi` manifest at their entry
-points inside `node_modules`. A release is therefore "re-pin the inner versions,
-verify the bundle, publish".
+`pi-skore` has no source of its own. It declares four packages in
+`dependencies` with an unrestricted range (`*`), lets `package-lock.json` pin
+the resolved versions, lists them in `bundleDependencies`, and points its `pi`
+manifest at their entry points inside `node_modules`. A release is therefore
+"refresh the locked inner versions, verify the bundle, publish".
+
+Reproducibility comes from the lockfile, not from the range: CI runs
+`npm ci`, which installs exactly the locked versions, and `bundleDependencies`
+embeds that resolved tree in the published tarball. Consumers never re-resolve
+the ranges.
 
 Publishing runs in GitHub Actions using
 [npm Trusted Publishing](https://docs.npmjs.com/trusted-publishers/) (OIDC), so
@@ -15,8 +21,8 @@ there is **no `NPM_TOKEN` secret**. The workflow file is
 ## TL;DR (re-pin + release)
 
 ```sh
-# 0. optionally update the pinned inner versions in package.json
-npm install --legacy-peer-deps --no-audit --no-fund
+# 0. optionally refresh the locked inner versions in package-lock.json
+npm update --legacy-peer-deps --no-audit --no-fund
 npm run verify
 npm pack --dry-run          # confirm the tarball is self-contained
 
@@ -72,9 +78,13 @@ publisher too, otherwise OIDC publishing stops working.
 `pi-skore` versions its own releases. When one of the bundled packages ships a
 new version, open a PR that:
 
-1. Updates the exact version in `dependencies` (and `package-lock.json`):
+1. Refreshes the locked version in `package-lock.json` (the `dependencies`
+   range stays `*`):
 
    ```sh
+   # all four at once
+   npm update --legacy-peer-deps --no-audit --no-fund
+   # or a single package to a specific version
    npm install @probabl/pi-ask-user-question@<new> --legacy-peer-deps --no-audit --no-fund
    ```
 
